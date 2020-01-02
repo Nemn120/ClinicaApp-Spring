@@ -158,7 +158,7 @@ public class MedicalConsultationController {
 		}
 		model.addAttribute("consulta",consultaMedica.get());
 		model.addAttribute("titulo","Consulta Medica Paciente: "+consultaMedica.get().getPatient().getFirstName() + " "+consultaMedica.get().getPatient().getLastName());
-		return "/medicalConsultation/ver";
+		return "medicalConsultation/ver";
 		
 	}
 	@GetMapping("/buscar")
