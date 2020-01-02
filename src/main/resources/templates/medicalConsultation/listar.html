@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="layout/layout :: head"></head>
+
+<body>
+    <header th:replace="layout/layout :: header"></header>
+   
+    <div class="container py-4">
+<br><br><br>
+        <div class="card bg-light">
+            <div class="card-header bg-primary text-white" th:text="${titulo}"></div>
+            <div class="card-body">
+
+               
+                
+				<div th:if="${#lists.isEmpty(medConsultas)}"
+					class="alert alert-info my-4"
+					th:text="'No hay consultas medicas para el paciente. '">
+					 <a class="btn btn-success btn-sm" th:href="@{/medicalConsultation/buscar/}" th:text="'Buscar nuevo paciente'"></a>
+					
+					
+					</div>
+				
+				
+
+                <table th:if="${not #lists.isEmpty(medConsultas)}"
+                class="table table-bordered table-striped my-4">
+                    <thead class="thead-info bg-info text-white">
+                        <tr>
+                            <th>ID</th>
+                            <th>FECHA</th>
+                            <th>DOCTOR</th>
+                            <th>PACIENTE</th>                       
+                            <th>VER</th>
+                            <th sec:authorize="hasRole('ROLE_ADMIN')" >ELIMINAR</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="consulta: ${medConsultas}">
+                            <td>
+                                <a class="btn btn-primary btn-xs text-white"  th:text="${consulta.id}"></a>
+                            </td>
+                         
+                            <td th:text="${consulta.createDate}"></td>
+                            <td th:text="${consulta.doctor.firstName} +' '+ ${consulta.doctor.lastName}"></td>
+                             <td th:text="${consulta.patient.firstName}+' '+ ${consulta.patient.lastName}"></td>
+                           
+                          
+                          
+                            <td>
+                                <a class="btn btn-success btn-sm" th:href="@{/medicalConsultation/ver/} + ${consulta.id}" th:text="'Ver'"></a>
+                            </td>
+                            <td sec:authorize="hasRole('ROLE_ADMIN')" >
+                                <a class="btn btn-danger btn-sm" sec:authorize="hasRole('ROLE_ADMIN')"   th:href="@{/medicalConsultation/eliminar/} + ${consulta.id}" th:text="'eliminar'" onclick="return confirm('Est�s seguro que quieres eliminar?');"></a>
+                            </td>
+                        </tr>
+                    </tbody>
+
+                </table>
+
+            </div>
+        </div>
+</div>
+   
+    <footer th:replace="layout/layout :: footer"></footer>
+</body>
+
+</html>

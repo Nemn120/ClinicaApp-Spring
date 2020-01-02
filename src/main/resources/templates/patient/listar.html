@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="layout/layout :: head"></head>
+
+<body>
+    <header th:replace="layout/layout :: header"></header>
+    <div class="card-header bg-primary text-white" th:text="${titulo}">
+    </div>
+    
+    <div class="container py-4">
+
+        <div class="card bg-light">
+            <div class="card-header bg-primary text-white" th:text="${titulo}"></div>
+            <div class="card-body">
+
+                <h4 class="card-title">
+                    <a th:href="@{/patient/form}" class="btn btn-primary">Agregar Paciente</a>
+                </h4>
+                
+
+
+
+                <table class="table table-bordered table-striped my-4">
+                    <thead class="thead-info bg-info text-white">
+                        <tr>
+                            <th>ID</th>
+                            <th>NOMBRE</th>
+                            <th>APELLIDO</th>
+                            <th>DNI</th>
+                            <th>HistoriaClinica</th>
+                  
+                            <th> VER</th>
+                            <th   >EDITAR</th>
+                            <th  >ELIMINAR</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="patient: ${patients}">
+                            <td>
+                                <a class="btn btn-primary btn-xs text-white"  th:text="${patient.id}"></a>
+                            </td>
+                            <td th:text="${patient.firstName}"></td>
+                            <td th:text="${patient.lastName}"></td>
+                            <td th:text="${patient.dni}"></td>
+                            <td th:text="${patient.numberClinicalHistory}"></td> 
+ 						          
+                           <td>
+                                <a  class="btn btn-info btn-sm" th:href="@{/patient/ver/} + ${patient.id}" th:text="'detalle'"></a>
+                            </td>
+                            <td>
+                                <a    class="btn btn-info btn-warning" th:href="@{/patient/form/} + ${patient.id}" th:text="'editar'"></a>
+                            </td>
+                            <td >
+                                <a    class="btn btn-danger btn-sm" th:href="@{/patient/eliminar/} + ${patient.id}" th:text="'eliminar'" onclick="return confirm('Est�s seguro que quieres eliminar?');"></a>
+                            </td>
+                        </tr>
+                    </tbody>
+
+                </table>
+
+            </div>
+        </div>
+</div>
+   
+    <footer th:replace="layout/layout :: footer"></footer>
+</body>
+
+</html>

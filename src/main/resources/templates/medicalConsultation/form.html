@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="layout/layout :: head"></head>
+
+<body>
+	<header th:replace="layout/layout :: header"></header>
+
+	<div class="container py-4">
+
+
+
+		<br>
+		<br>
+		<br>
+		<div class="card">
+			<div class="card-header bg-primary text-white" th:text="${titulo}"></div>
+			<div class="card-body bg-light">
+				<form th:action="@{/medicalConsultation/form}"
+					th:object="${consulta}" method="post">
+					<div class="form-group row">
+						<label for="patient" class="col-sm-2 col-form-label">Paciente:
+						</label>
+						<div class="col-sm-6">
+							<input name="patient" type="text" readonly class="form-control-plaintext" disabled='disabled'
+							
+								th:value="${consulta.patient.firstName}+' '+${consulta.patient.lastName}">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label">Doctor: </label>
+						<div class="col-sm-6">
+							<select  class="form-control" th:field="*{doctor}">
+								<option th:each="doctore : ${doctores}"
+									th:text="${doctore.firstName}+ ' '+${doctore.lastName}+ ' - ' +${doctore.specialty.nombre}"
+									th:value="${doctore.id}"></option>
+
+
+							</select>
+						</div>
+
+					</div>
+					<div class="card">
+						<div class="card-header bg-info text-white"
+							th:text="'Detalle de la Consulta'"></div>
+						<div class="card-body bg-light">
+
+						
+                          <div class="form-group row">
+                       
+                          	
+                          	
+					<table id="dynamic_field"
+						class="table table-sm table-striped table-hover">
+						<thead>
+							<tr>
+								
+								
+								<th>Diagnostico</th>
+								<th>Tratamiento</th>
+								<th>Opciones</th>
+							</tr>
+						</thead>
+						<tbody class="table table-bordered" >
+							<tr>
+			
+                            <td><input type="text"name="diagnostico[]" placeholder="Ingrese Diagnostico" class="form-control name_list" /></td>
+                           <td><input type="text"  name="tratamiento[]" placeholder="Ingrese Tratamiento" class="form-control name_list" /></td>
+                            <td><button type="button" name="add" id="add" class="btn btn-success">Agregar Detalle</button></td>
+                        </tr>
+						
+						</tbody>
+					</table>
+                          	  
+					
+						</div>
+					</div>
+			</div>
+					<br>
+					<div class="form-group row">
+			<div class="col-sm-6">
+				<input type="submit" value="Registrar" class="btn btn-primary" />
+			</div>
+		</div>
+				</form>
+				
+				
+		<div class="form-group row">
+			<div class="col-sm-6">
+				<a th:href="@{/medicalConsultation/generar}" class="btn btn-info">Regresar</a>
+			</div>
+		</div>	
+		
+	</div>
+					
+	
+	
+			</div>
+		</div>
+		
+
+
+
+	<footer th:replace="layout/layout :: footer"></footer>
+		
+   <script >
+
+    $(document).ready(function(){  
+        var i=1; 
+      
+               
+         //    $('#dynamic_field').append('<tr id="row'+i+'"><td><input type="text" name="name[]" placeholder="Enter your Name" class="form-control name_list" /></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button></td></tr>');
+             
+        
+  	   $('#add').click(function() {
+           i++;
+           $('#dynamic_field').append('<tr id="row' + i + '"><td><input type="text" name="diagnostico[]" placeholder="Ingrese Diagnostico" class="form-control name_list" /></td><td><input type="text" name="tratamiento[]" placeholder="Ingrese Tratamiento" class="form-control name_list" /></td><td><button type="button" name="remove" id="' + i + '" class="btn btn-danger btn_remove">Eliminar Detalle</button></td></tr>');
+  	   console.log(i);
+       });
+  	  $(document).on('click', '.btn_remove', function() {
+          var button_id = $(this).attr("id");
+          $('#row' + button_id + '').remove();
+      });
+  		
+       
+        
+        
+    
+        
+      
+        
+        
+   });  
+
+</script> 
+
+	
+
+		
+
+
+</body>
+
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="layout/layout :: head"></head>
+
+<body>
+<br><br><br>
+	<header th:replace="layout/layout :: header"></header>
+	<div class="container py-4">
+
+		<div class="card bg-light">
+			<div class="card-header bg-info text-white" th:text="${titulo}"></div>
+			<div class="card-body">
+			
+			
+			<ul class="list-group">
+					<li  class="list-group-item"th:text="'Especialidad: ' +${specialty.nombre}"></li>
+					
+				</ul>
+
+				<div th:if="${#lists.isEmpty(specialty.doctors)}"
+					class="alert alert-info my-4"
+					th:text="'No hay doctores asignados a la especialidad ' + ${specialty.nombre} "></div>
+						<br>
+						<div class="card bg-light"  th:if="${not #lists.isEmpty(specialty.doctors)}">
+							<div  class="card-header bg-info text-white" th:text="'Lista de Doctores'"></div>
+					<div class="card-body">
+				<table th:if="${not #lists.isEmpty(specialty.doctors)}"
+					class="table table-bordered table-striped my-4">
+					<thead class="thead-dark">
+						<tr>
+							<th>ID</th>
+							<th>Nombre</th>
+							<th>Apellido</th>
+							<th>CMP</th>
+							<th>DNI</th>
+							<th>ESPECIALIDAD</th>
+						
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="doctor: ${specialty.doctors}">
+							<td>
+							<a class="btn btn-primary btn-xs text-white" th:text="${doctor.id}"></a></td>
+							<td th:text="${doctor.firstName}"></td>
+							<td th:text="${doctor.lastName}"></td>
+							
+							<td th:text="${doctor.cmp}"></td>
+							<td th:text="${doctor.dni}"></td>
+							<td th:text="${doctor.specialty.nombre}"></td>
+							
+							
+						</tr>
+					</tbody>
+
+				</table>
+				</div>
+				</div>
+				<br>
+				<a  class="btn btn-info"
+						th:href="@{/doctor/buscar}"
+						th:text="'Regresar'"></a>
+						
+				
+
+			</div>
+			
+		</div>
+
+	</div>
+
+	<footer th:replace="layout/layout :: footer"></footer>
+	
+	</body>
+
+</html>

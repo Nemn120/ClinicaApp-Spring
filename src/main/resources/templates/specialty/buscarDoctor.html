@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="layout/layout :: head"></head>
+
+<body>
+    <header th:replace="layout/layout :: header"></header>
+      <br><br>
+    <div class="card-header bg-primary text-white" th:text="${titulo}">
+    </div>
+  
+    <div class="container py-4">
+
+        <div class="card bg-light">
+            <div class="card-header bg-primary text-white" th:text="${titulo}"></div>
+            <div class="card-body">
+            
+            
+  <form th:action="@{/doctor/buscar}" method="POST"> 
+
+
+<div class="form-group row">
+						<label class="col-sm-2 col-form-label">Especialidad</label>
+						<div class="col-sm-6">
+		<select name="nombre"  class="form-control" >
+			<option th:each="especialidad : ${specialtys}" th:text="${especialidad.nombre}"
+				th:value="${especialidad.id}"></option>
+	
+
+		</select>
+		</div>
+		     <input   class="btn btn-success btn-xs" type="submit" value="Confirmar"  />
+		</div>
+					
+				
+</form>
+
+	
+
+</div>
+</div>
+</div>
+<footer th:replace="layout/layout :: footer"></footer>
+</body>
+
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+	<table th:fragment="detalleConsulta" class="d-none">
+
+		<tbody id="plantillaDetalleConsulta">
+			<tr id="row_{ID}">
+				
+				 <td>{Diagnostico}<input type="text" readonly="readonly"  name="diagnostico[]"  /></td>
+				<td>{Tratamiento}<input type="text" readonly="readonly"  name="tratamiento[]"  /></td>
+				
+			
+			</tr>
+
+		</tbody>
+
+	</table>
+
+</body>
+</html>

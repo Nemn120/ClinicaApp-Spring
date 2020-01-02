@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="layout/layout :: head"></head>
+
+<body>
+<br><br>
+    <header th:replace="layout/layout :: header"></header>
+    <div class="card-header bg-primary text-white" th:text="${titulo}">
+    </div>
+    
+    <div class="container py-4">
+
+        <div class="card bg-light">
+            <div class="card-header bg-primary text-white" th:text="${titulo}"></div>
+            <div class="card-body">
+            
+
+  <form th:action="@{/medicalConsultation/generar}" method="POST"> 
+
+	
+		
+<div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="inputGroup-sizing-default">Ingrese DNI</span>
+  </div>
+  <input type="text" size="30" name="dni" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+  <input  class="btn btn-success btn-xs" type="submit" value="Generar Consulta" />
+</div>
+
+</form>
+
+</div>
+</div>
+</div>
+<footer th:replace="layout/layout :: footer"></footer>
+</body>
+
+</html>

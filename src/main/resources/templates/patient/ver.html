@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="layout/layout :: head"></head>
+
+<body>
+	<header th:replace="layout/layout :: header"></header>
+	
+
+	<div class="container py-4">
+<br><br><br>
+		<div class="card bg-light">
+			<div class="card-header bg-info text-white" th:text="${titulo}"></div>
+			<div class="card-body">
+
+				<h4   class="card-title">
+					<a  sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-primary"
+						th:href="@{/medicalConsultation/form/}+ ${patient.id}"
+						th:text="'Agregar Consulta'"></a>
+				</h4>
+				
+
+			
+
+				<ul class="list-group">
+					<li class="list-group-item active" th:text="${patient.firstName} +' ' +${patient.lastName}"></li>
+					<li class="list-group-item" th:text="'DNI: ' +${patient.dni}"></li>
+					<li class="list-group-item" th:text="'H.Clinica: '+${patient.numberClinicalHistory}"></li>
+				</ul>
+
+				<div th:if="${#lists.isEmpty(patient.medicalConsultations)}"
+					class="alert alert-info my-4"
+					th:text="'No hay consultas medicas para el paciente ' + ${patient.firstName} + ' ' + ${patient.lastName}"></div>
+						<br>
+						<div class="card bg-light"  th:if="${not #lists.isEmpty(patient.medicalConsultations)}">
+							<div  class="card-header bg-info text-white" th:text="'Lista de Consultas Medicas'"></div>
+					<div class="card-body">
+				<table th:if="${not #lists.isEmpty(patient.medicalConsultations)}"
+					class="table table-bordered table-striped my-4">
+					<thead class="thead-dark">
+						<tr>
+							<th>Folio</th>
+							<th>Doctor</th>
+							<th>Fecha</th>
+							<th>Ver</th>
+							<th sec:authorize="hasRole('ROLE_ADMIN')" >Eliminar</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="medicalConsultation: ${patient.medicalConsultations}">
+							<td>
+							<a class="btn btn-primary btn-xs text-white" th:text="${medicalConsultation.id}"></a></td>
+							<td th:text="${medicalConsultation.doctor.firstName}+ ' ' + ${medicalConsultation.doctor.lastName}"></td>
+							<td th:text="${medicalConsultation.createDate}"></td>
+							
+							<td><a class="btn btn-success btn-sm" th:href="@{'/medicalConsultation/ver/' + ${medicalConsultation.id}}" th:text="'detalle'"></a></td>
+							<td sec:authorize="hasRole('ROLE_ADMIN')" ><a class="btn btn-danger btn-sm"  sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{'/medicalConsultation/eliminar/' + ${medicalConsultation.id}}" th:text="'eliminar'"
+							 onclick="return confirm('¿Estas seguro que desea eliminar la factura?');"></a></td>
+						</tr>
+					</tbody>
+
+				</table>
+				</div>
+				</div>
+				<br>
+				<a  sec:authorize="hasRole('ROLE_DOCTOR')" class="btn btn-info"
+						th:href="@{/patient/buscar}"
+						th:text="'Regresar'"></a>
+						
+				<a  sec:authorize="hasRole('ROLE_ADMIN')"class="btn btn-info"
+						th:href="@{/patient/listar}"
+						th:text="'Regresar'"></a>		
+
+			</div>
+			
+		</div>
+
+	</div>
+
+	<footer th:replace="layout/layout :: footer"></footer>
+	
+	</body>
+
+</html>
