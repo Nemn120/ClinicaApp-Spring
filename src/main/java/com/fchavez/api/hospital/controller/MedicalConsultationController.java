@@ -48,7 +48,7 @@ public class MedicalConsultationController {
 		String DNI=null;
 		model.addAttribute("DNI",DNI);
 		model.addAttribute("titulo","Generar Nueva Consulta Medica");
-		return "medicalCOnsultation/generar";
+		return "medicalConsultation/generar";
 	}
 	
 	@PostMapping("/generar")
